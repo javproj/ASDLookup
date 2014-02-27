@@ -7,8 +7,8 @@
     
     Usage:
     -- cd to directory of the file
-    -- type: python ASDLookup1.5.py SERIAL
-    -- ex: python ASDLookup1.5.py C02H6EZ1DV7L
+    -- type: python ASDLookup.py SERIAL
+    -- ex: python ASDLookup.py C02H6EZ1DV7L
     
     Notes & Future Improvements:
     -- I will be updating this with future versions of ASD as Apple releases them
