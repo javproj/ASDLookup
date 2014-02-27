@@ -1,9 +1,14 @@
 """
     Author: Jesse Vazquez, Jesse.Vazquez@trincoll.edu
     Last Modified: 02/27/2014
-    Version: 1.4
+    Version: 1.5
    
     Apple Service Diagnostic Lookup is a program to help with identifying which version of Apple's ASD should be used based on the official Apple name given to that device.    
+    
+    Usage:
+    -- cd to directory of the file
+    -- type: python ASDLookup1.5.py SERIAL
+    -- ex: python ASDLookup1.5.py C02H6EZ1DV7L
     
     Notes & Future Improvements:
     -- I will be updating this with future versions of ASD as Apple releases them
@@ -11,8 +16,10 @@
     -- Add more support for older Apple products, though it's not needed for my usage
     
     Recently Fixed:
+    -- No longer using Tkinter module, now runs from command line
+    -- Takes in the serial as an argument
     -- Ability to look up ASD version based on serial number
-    -- Changed name to "ASD Lookup"
+    -- Changed name to "ASD Lookup" from "ASDHelper"
     
     Adding an ASD version:
     -- Note: Follow the same format as all other versions
@@ -26,24 +33,19 @@
 """
 import sys
 import urllib2
-import Tkinter as tki
 from xml.etree import ElementTree
 
-# creates instance of Tkinter lib
-master = tki.Tk()
-master.title("ASD Lookup")
+computer = ""       # this will hold the computer's entire name
+versionCount = 0    # used when looping to pull right version from ASDver array
+returned = False    # used to determine if an ASD version was returned
+serial = ""         # holds the serial number of the computer
 
-computer = tki.StringVar()  # this will hold the computer's entire name
-versionCount = tki.IntVar() # used when looping to pull right version from ASDver array
-returned = tki.BooleanVar() # used to determine if an ASD version was returned
-serial = tki.StringVar()    # holds the serial number of the computer
-
-##################### START ASD CLASSES ###################
+##################### START ASD CLASSES #########################
 
 #Global variable List that stores the string literal names of all classes.
 ASDver = ["ASD3S108", "ASD3S116", "ASD3S123", "ASD3S132A", "ASD3S138", "ASD3S139", "ASD3S140", "ASD3S142A", "ASD3S144", "ASD3S145", "ASD3S146", "ASD3S147", "ASD3S148", "ASD3S149", "ASD3S150", "ASD3S151", "ASD3S152", "ASD3S155", "ASD3S156", "ASD3S157", "ASD3S158", "ASD3S159"]
 
-#Each class has a compList variable that will contains all of the supported computers.
+#Each class has a compList array that will contains strings of all of the supported computers.
 class ASD3S108():
     compList = ["iMac (17-inch, Early 2006)", "iMac (20-inch, Early 2006)", "iMac (17-inch, Mid 2006)", "iMac (17-inch, Late 2006)", "iMac (17-inch, Late 2006, CD)", "iMac (20-inch, Late 2006)", "iMac (24-inch)", "Mac mini (Early 2006)", "Mac mini (Late 2006)", "Mac Pro", "MacBook (13-inch)", "MacBook Pro (15-inch)", "MacBook Pro (15-inch, Glossy)", "MacBook Pro (17-inch)"]
 
@@ -110,158 +112,156 @@ class ASD3S158():
 class ASD3S159():
     compList = ["Mac Pro (Late 2013)"]
 
-##################### END ASD CLASSES #####################
+##################### END CLASSES / START FUNCTIONS #############
 
 def printComputer():
     """ Sets the computer variable to the name of the computer, which is obtained by using the getCode and getModel functions. Once it has the computer name, it runs checkASD to identify the version based on the computer name"""
     # Reset the computer variable in case we run it multiple times
-    computer.set("")
+    computer = ""
     
     # Run getModel on the output from getCode
-    computer.set(getModel(getCode(serial.get())))    
+    computer = getModel(getCode(serial))    
     
-    print "Serial Number: ", serial.get()
-    print "Apple Name: ", computer.get()
-    return checkASD(computer.get())
+    print "Serial Number: ", serial
+    print "Apple Name: ", computer
+    return checkASD(computer)
 
 def checkASD(compName):
     """
         This function takes in a string which is the computer name, then loops through each of the class compList arrays looking for that string in each of the ASD version classes.
     """
-    returned.set(False)
-    versionCount.set(0) # initialize variable
     for j in ASD3S108.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(1)
+    versionCount = 1
     for j in ASD3S116.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(2)
+    versionCount = 2
     for j in ASD3S123.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(3)
+    versionCount = 3
     for j in ASD3S132A.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(4)
+    versionCount = 4
     for j in ASD3S138.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(5)
+    versionCount = 5
     for j in ASD3S139.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(6)
+    versionCount = 6
     for j in ASD3S140.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(7)
+    versionCount = 7
     for j in ASD3S142A.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(8)
+    versionCount = 8
     for j in ASD3S144.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(9)
+    versionCount = 9
     for j in ASD3S145.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(10)
+    versionCount = 10
     for j in ASD3S146.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(11)
+    versionCount = 11
     for j in ASD3S147.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(12)
+    versionCount = 12
     for j in ASD3S148.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(13)
+    versionCount = 13
     for j in ASD3S149.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(14)
+    versionCount = 14
     for j in ASD3S150.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(15)
+    versionCount = 15
     for j in ASD3S151.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(16)
+    versionCount = 16
     for j in ASD3S152.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(17)
+    versionCount = 17
     for j in ASD3S155.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(18)
+    versionCount = 18
     for j in ASD3S156.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(19)
+    versionCount = 19
     for j in ASD3S157.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(20)
+    versionCount = 20
     for j in ASD3S158.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    versionCount.set(21)
+    versionCount = 21
     for j in ASD3S159.compList:
         if compName == j:
-            print ASDver[versionCount.get()]
-            returned.set(True)
+            print ASDver[versionCount]
+            returned = True
             break
-    if returned.get() == False:
+    if returned == False:
         print "No ASD version found, check your input"
     
 def getCode(sn):
@@ -277,16 +277,7 @@ def getModel(code):
     except:
         return None
 
-#################### END FUNCTIONS / DISPLAY ENTRY WIDGET ############
-# Create the Entry widget for getting input
-e = tki.Entry(master, textvariable = serial)
-e.pack()
+#################### END FUNCTIONS / RUN ########################
 
-# Set focus so it cursor is already on the text field for entry
-e.focus_set()
-
-# Create the button which calls on the printComputer function
-b = tki.Button(master, text = "Get Version", width = 10, command = printComputer)
-b.pack()
-
-master.mainloop()
+serial = sys.argv[1]
+printComputer()
