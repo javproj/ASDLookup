@@ -16,7 +16,9 @@
     -- Potentially integrate with GSX API for a live list of ASD versions
     
     Recently Fixed:
-    -- Made checkASD function more efficient using the eval() method
+    -- Made checkASD() more efficient using the eval() method
+    -- Updated printComputer() to handle for if no computer is found
+    -- Updated checkASD() to initialize "returned" variable
     
     Adding an ASD version:
     -- Note: Follow the same format as all other versions
