@@ -116,7 +116,10 @@ def printComputer():
     computer = getModel(getCode(serial))    
     
     print "Serial Number: ", serial
-    print "Apple Name: ", computer
+    if computer == None:
+        print "Could not identify Apple name from serial"
+    else:
+        print "Apple Name: ", computer
     return checkASD(computer)
 
 def checkASD(compName):
@@ -124,6 +127,7 @@ def checkASD(compName):
         This function takes in a string which is the computer name, then loops through each of the class compList arrays looking for that string in each of the ASD version classes.
     """
     classVar = "compList"
+    returned = False
     for ver in ASDver:
         if compName in eval(ver + "()." + classVar):
             print ver
