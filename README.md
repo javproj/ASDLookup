@@ -21,6 +21,7 @@ ASDLookup
     -- Made checkASD() more efficient using the eval() method
     -- Updated printComputer() to handle for if no computer is found
     -- Updated checkASD() to initialize "returned" variable
+	-- Removed unnecessary variable "versionCount" and "returned" from top declarations section
     
     Adding an ASD version:
     -- Note: Follow the same format as all other versions

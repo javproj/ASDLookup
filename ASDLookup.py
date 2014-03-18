@@ -10,16 +10,6 @@
     -- type: python ASDLookup.py SERIAL
     -- ex: python ASDLookup.py C02H6EZ1DV7L
     
-    Notes & Future Improvements:
-    -- I will be updating this with future versions of ASD as Apple releases them
-    -- Add more support for older Apple products, though it's not needed for my usage
-    -- Potentially integrate with GSX API for a live list of ASD versions
-    
-    Recently Fixed:
-    -- Made checkASD() more efficient using the eval() method
-    -- Updated printComputer() to handle for if no computer is found
-    -- Updated checkASD() to initialize "returned" variable
-    
     Adding an ASD version:
     -- Note: Follow the same format as all other versions
     -- >> Add a string to the array 'ASDVer'
@@ -34,8 +24,6 @@ import urllib2
 from xml.etree import ElementTree
 
 computer = ""       # this will hold the computer's entire name
-versionCount = 0    # used when looping to pull right version from ASDver array
-returned = False    # used to determine if an ASD version was returned
 serial = ""         # holds the serial number of the computer
 
 ##################### START ASD CLASSES #########################
