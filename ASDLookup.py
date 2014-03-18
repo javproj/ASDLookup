@@ -1,7 +1,7 @@
 """
     Author: Jesse Vazquez, Jesse.Vazquez@trincoll.edu
-    Last Modified: 02/27/2014
-    Version: 1.5
+    Last Modified: 03/18/2014
+    Version: 1.6
    
     Apple Service Diagnostic Lookup is a program to help with identifying which version of Apple's ASD should be used based on the official Apple name given to that device.    
     
@@ -12,21 +12,17 @@
     
     Notes & Future Improvements:
     -- I will be updating this with future versions of ASD as Apple releases them
-    -- Make checkASD more efficient as I have to loop through each compList individually
     -- Add more support for older Apple products, though it's not needed for my usage
+    -- Potentially integrate with GSX API for a live list of ASD versions
     
     Recently Fixed:
-    -- No longer using Tkinter module, now runs from command line
-    -- Takes in the serial as an argument
-    -- Ability to look up ASD version based on serial number
-    -- Changed name to "ASD Lookup" from "ASDHelper"
+    -- Made checkASD function more efficient using the eval() method
     
     Adding an ASD version:
     -- Note: Follow the same format as all other versions
     -- >> Add a string to the array 'ASDVer'
     -- >> Add a class named after the version
     -- >> Add compList array to class with supported computers
-    -- >> In checkASD, create for loop for the new class, and update versionCount
     
     Credit:
     -- Github user @magervalp shows how to grab the Apple Name from a serial number using their support site, I modified his methods slightly to make them more efficient and fit my needs.
@@ -130,135 +126,10 @@ def checkASD(compName):
     """
         This function takes in a string which is the computer name, then loops through each of the class compList arrays looking for that string in each of the ASD version classes.
     """
-    for j in ASD3S108.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 1
-    for j in ASD3S116.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 2
-    for j in ASD3S123.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 3
-    for j in ASD3S132A.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 4
-    for j in ASD3S138.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 5
-    for j in ASD3S139.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 6
-    for j in ASD3S140.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 7
-    for j in ASD3S142A.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 8
-    for j in ASD3S144.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 9
-    for j in ASD3S145.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 10
-    for j in ASD3S146.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 11
-    for j in ASD3S147.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 12
-    for j in ASD3S148.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 13
-    for j in ASD3S149.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 14
-    for j in ASD3S150.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 15
-    for j in ASD3S151.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 16
-    for j in ASD3S152.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 17
-    for j in ASD3S155.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 18
-    for j in ASD3S156.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 19
-    for j in ASD3S157.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 20
-    for j in ASD3S158.compList:
-        if compName == j:
-            print ASDver[versionCount]
-            returned = True
-            break
-    versionCount = 21
-    for j in ASD3S159.compList:
-        if compName == j:
-            print ASDver[versionCount]
+    classVar = "compList"
+    for ver in ASDver:
+        if compName in eval(ver + "()." + classVar):
+            print ver
             returned = True
             break
     if returned == False:
