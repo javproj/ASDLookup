@@ -112,9 +112,6 @@ class ASD3S159():
 
 def printComputer():
     """ Sets the computer variable to the name of the computer, which is obtained by using the getCode and getModel functions. Once it has the computer name, it runs checkASD to identify the version based on the computer name"""
-    # Reset the computer variable in case we run it multiple times
-    computer = ""
-    
     # Run getModel on the output from getCode
     computer = getModel(getCode(serial))    
     
