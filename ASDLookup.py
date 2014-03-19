@@ -83,7 +83,7 @@ def printComputer(sn):
     # Run getModel on the output from getCode
     computer = getModel(getCode(sn))    
     
-    print "Serial Number: ", serial
+    print "Serial Number: ", sn
     if computer == None:
         print "Could not identify Apple name from serial"
     else:
