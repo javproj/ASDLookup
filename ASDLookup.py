@@ -1,6 +1,6 @@
 """
     Author: Jesse Vazquez, Jesse.Vazquez@trincoll.edu
-    Last Modified: 03/18/2014
+    Last Modified: 03/19/2014
     Version: 1.7
    
     Apple Service Diagnostic Lookup is a program to help with identifying which version of Apple's ASD should be used based on the official Apple name given to that device.    
@@ -74,11 +74,14 @@ ASDver = {
 }
 
 ##################### END DICTIONARY / START FUNCTIONS #############
-
-def printComputer():
+def main():
+    """ Runs the printComputer() function which will return the necessary data """
+    printComputer(serial)
+    
+def printComputer(sn):
     """ Sets the computer variable to the name of the computer, which is obtained by using the getCode and getModel functions. Once it has the computer name, it runs checkASD to identify the version based on the computer name"""
     # Run getModel on the output from getCode
-    computer = getModel(getCode(serial))    
+    computer = getModel(getCode(sn))    
     
     print "Serial Number: ", serial
     if computer == None:
@@ -115,7 +118,11 @@ def getModel(code):
     except:
         return None
 
-#################### END FUNCTIONS / RUN ########################
-
+#################### END FUNCTIONS ########################
+# Set serial to equal the argument passed in terminal
 serial = sys.argv[1]
-printComputer()
+
+# If ASDLookup is run instead of imported as a module
+# Run the main() function
+if __name__ == '__main__':
+    main()

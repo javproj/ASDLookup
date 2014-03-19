@@ -2,7 +2,7 @@ ASDLookup
 =========
 
     Author: Jesse Vazquez, Jesse.Vazquez@trincoll.edu
-    Last Modified: 03/18/2014
+    Last Modified: 03/19/2014
     Version: 1.7
    
     Apple Service Diagnostic Lookup is a program to help with identifying which version of Apple's ASD should be used based on the official Apple name given to that device.    
@@ -18,6 +18,7 @@ ASDLookup
     -- Potentially integrate with GSX API for a live list of ASD versions
     
     Recently Fixed:
+	-- Cleaned up coding
     -- Now using a dictionary to store versions and supported computers 
 	-- >> Storing this data in classes and using the eval() method can be a security problem
 	-- Made checkASD() more efficient
